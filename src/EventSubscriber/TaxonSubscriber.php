@@ -15,12 +15,12 @@ namespace NFQ\SyliusOmnisendPlugin\EventSubscriber;
 
 use NFQ\SyliusOmnisendPlugin\Message\Command\DeleteCategory;
 use NFQ\SyliusOmnisendPlugin\Message\Command\UpdateCategory;
-use Sylius\Bundle\ResourceBundle\Event\ResourceControllerEvent;
 use Sylius\Component\Channel\Context\ChannelContextInterface;
 use Sylius\Component\Core\Model\TaxonInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Messenger\Envelope;
 use Symfony\Component\Messenger\MessageBusInterface;
+use Symfony\Component\EventDispatcher\GenericEvent;
 
 class TaxonSubscriber implements EventSubscriberInterface
 {
@@ -47,7 +47,7 @@ class TaxonSubscriber implements EventSubscriberInterface
         ];
     }
 
-    public function onUpdate(ResourceControllerEvent $event): void
+    public function onUpdate(GenericEvent $event): void
     {
         /** @var TaxonInterface $taxon */
         $taxon = $event->getSubject();
@@ -62,7 +62,7 @@ class TaxonSubscriber implements EventSubscriberInterface
         );
     }
 
-    public function onDelete(ResourceControllerEvent $event): void
+    public function onDelete(GenericEvent $event): void
     {
         /** @var TaxonInterface $taxon */
         $taxon = $event->getSubject();

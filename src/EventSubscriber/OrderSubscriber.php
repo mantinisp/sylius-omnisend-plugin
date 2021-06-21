@@ -20,7 +20,6 @@ use NFQ\SyliusOmnisendPlugin\Message\Command\UpdateOrder;
 use NFQ\SyliusOmnisendPlugin\Message\Command\UpdateOrderState;
 use NFQ\SyliusOmnisendPlugin\Model\OrderInterface;
 use SM\Event\TransitionEvent;
-use Sylius\Bundle\ResourceBundle\Event\ResourceControllerEvent;
 use Sylius\Component\Core\Model\ChannelInterface;
 use Sylius\Component\Core\Model\PaymentInterface;
 use Sylius\Component\Core\Model\ShipmentInterface;
@@ -29,6 +28,7 @@ use Sylius\Component\Order\OrderTransitions;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Messenger\Envelope;
 use Symfony\Component\Messenger\MessageBusInterface;
+use Symfony\Component\EventDispatcher\GenericEvent;
 
 class OrderSubscriber implements EventSubscriberInterface
 {
@@ -53,7 +53,7 @@ class OrderSubscriber implements EventSubscriberInterface
         ];
     }
 
-    public function onUpdate(ResourceControllerEvent $event): void
+    public function onUpdate(GenericEvent $event): void
     {
         /** @var OrderInterface $order */
         $order = $event->getSubject();

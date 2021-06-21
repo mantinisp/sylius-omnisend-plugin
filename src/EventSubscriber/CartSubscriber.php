@@ -17,7 +17,6 @@ use NFQ\SyliusOmnisendPlugin\Message\Command\DeleteCart;
 use NFQ\SyliusOmnisendPlugin\Message\Command\UpdateCart;
 use NFQ\SyliusOmnisendPlugin\Model\OrderDetails;
 use NFQ\SyliusOmnisendPlugin\Resolver\ContactIdResolverInterface;
-use Sylius\Bundle\ResourceBundle\Event\ResourceControllerEvent;
 use Sylius\Component\Core\Model\ChannelInterface;
 use Sylius\Component\Core\Model\OrderInterface;
 use Sylius\Component\Order\Context\CartContextInterface;
@@ -59,7 +58,7 @@ class CartSubscriber implements EventSubscriberInterface
         ];
     }
 
-    public function onOrderItemChange(ResourceControllerEvent $event): void
+    public function onOrderItemChange(GenericEvent $event): void
     {
         /** @var \NFQ\SyliusOmnisendPlugin\Model\OrderInterface $cart */
         $cart = $this->cartContext->getCart();
@@ -107,7 +106,7 @@ class CartSubscriber implements EventSubscriberInterface
         }
     }
 
-    public function onUpdate(ResourceControllerEvent $event): void
+    public function onUpdate(GenericEvent $event): void
     {
         /** @var \NFQ\SyliusOmnisendPlugin\Model\OrderInterface $order */
         $order = $event->getSubject();
@@ -170,7 +169,7 @@ class CartSubscriber implements EventSubscriberInterface
         );
     }
 
-    public function onCartRemove(ResourceControllerEvent $event): void
+    public function onCartRemove(GenericEvent $event): void
     {
         /** @var OrderInterface $cart */
         $cart = $event->getSubject();

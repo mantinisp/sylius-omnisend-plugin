@@ -16,7 +16,6 @@ namespace NFQ\SyliusOmnisendPlugin\EventSubscriber;
 use NFQ\SyliusOmnisendPlugin\Manager\ContactManagerInterface;
 use NFQ\SyliusOmnisendPlugin\Message\Command\UpdateContact;
 use NFQ\SyliusOmnisendPlugin\Setter\ContactCookieSetter;
-use Sylius\Bundle\ResourceBundle\Event\ResourceControllerEvent;
 use Sylius\Component\Channel\Context\ChannelContextInterface;
 use Sylius\Component\Core\Model\AddressInterface;
 use Sylius\Component\Core\Model\Customer;
@@ -24,6 +23,7 @@ use Sylius\Component\Core\Model\CustomerInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Messenger\Envelope;
 use Symfony\Component\Messenger\MessageBusInterface;
+use Symfony\Component\EventDispatcher\GenericEvent;
 
 class CustomerSubscriber implements EventSubscriberInterface
 {
@@ -62,7 +62,7 @@ class CustomerSubscriber implements EventSubscriberInterface
         ];
     }
 
-    public function onRegister(ResourceControllerEvent $event): void
+    public function onRegister(GenericEvent $event): void
     {
         /** @var CustomerInterface $customer */
         $customer = $event->getSubject();
@@ -73,7 +73,7 @@ class CustomerSubscriber implements EventSubscriberInterface
         }
     }
 
-    public function onUpdate(ResourceControllerEvent $event): void
+    public function onUpdate(GenericEvent $event): void
     {
         /** @var CustomerInterface $customer */
         $customer = $event->getSubject();
@@ -88,7 +88,7 @@ class CustomerSubscriber implements EventSubscriberInterface
         );
     }
 
-    public function onAddressUpdate(ResourceControllerEvent $event): void
+    public function onAddressUpdate(GenericEvent $event): void
     {
         /** @var AddressInterface $address */
         $address = $event->getSubject();
