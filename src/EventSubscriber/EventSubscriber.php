@@ -22,6 +22,7 @@ use Sylius\Component\Core\Model\ChannelInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Messenger\Envelope;
 use Symfony\Component\Messenger\MessageBusInterface;
+use Symfony\Component\EventDispatcher\GenericEvent;
 
 class EventSubscriber implements EventSubscriberInterface
 {
@@ -43,7 +44,7 @@ class EventSubscriber implements EventSubscriberInterface
         ];
     }
 
-    public function onEventChange(ResourceControllerEvent $event): void
+    public function onEventChange(GenericEvent $event): void
     {
         /** @var Event $trackingEvent */
         $trackingEvent = $event->getSubject();
