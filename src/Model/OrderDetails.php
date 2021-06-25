@@ -22,7 +22,7 @@ class OrderDetails implements ResourceInterface
     /** @var int */
     private $id;
 
-    /** @var OrderInterface */
+    /** @var OrderInterface|null */
     private $order;
 
     /** @var string|null */
@@ -61,12 +61,12 @@ class OrderDetails implements ResourceInterface
         $this->id = $id;
     }
 
-    public function getOrder(): OrderInterface
+    public function getOrder(): ?OrderInterface
     {
         return $this->order;
     }
 
-    public function setOrder(OrderInterface $order): void
+    public function setOrder(?OrderInterface $order): void
     {
         $this->order = $order;
     }
