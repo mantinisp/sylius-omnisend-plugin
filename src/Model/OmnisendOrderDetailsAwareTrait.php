@@ -28,6 +28,7 @@ trait OmnisendOrderDetailsAwareTrait
     public function __construct()
     {
         $this->omnisendOrderDetails = new OrderDetails();
+        $this->omnisendOrderDetails->setOrder($this);
     }
 
     public function getOmnisendOrderDetails(): OrderDetails
