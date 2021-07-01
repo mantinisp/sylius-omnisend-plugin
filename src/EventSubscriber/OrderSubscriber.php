@@ -50,6 +50,7 @@ class OrderSubscriber implements EventSubscriberInterface
     {
         return [
             'sylius.order.post_update' => 'onUpdate',
+            'sylius.order.post_complete' => 'onUpdate',
         ];
     }
 
