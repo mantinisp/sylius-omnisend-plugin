@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace NFQ\SyliusOmnisendPlugin\Resolver;
 
+use NFQ\SyliusOmnisendPlugin\Context\ContactContextInterface;
 use NFQ\SyliusOmnisendPlugin\Model\ContactAwareInterface;
 use Sylius\Component\Core\Model\OrderInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -20,12 +21,16 @@ use Symfony\Component\HttpFoundation\RequestStack;
 
 class ContactIdResolver implements ContactIdResolverInterface
 {
+    /** @var ContactContextInterface|null */
+    private $contactContext;
+
     /** @var Request|null */
     private $request;
 
-    public function __construct(RequestStack $requestStack)
+    public function __construct(ContactContextInterface $contactContext, RequestStack $requestStack)
     {
         $this->request = $requestStack->getCurrentRequest();
+        $this->contactContext = $contactContext;
     }
 
     public function resolve(OrderInterface $order): ?string
@@ -36,14 +41,7 @@ class ContactIdResolver implements ContactIdResolverInterface
         if (null !== $customer && null !== $customer->getOmnisendContactId()) {
             return $customer->getOmnisendContactId();
         }
-        if (
-            null !== $this->request &&
-            null !== $this->request->cookies &&
-            $this->request->cookies->has('omnisendContactID')
-        ) {
-            return $this->request->cookies->get('omnisendContactID');
-        }
 
-        return null;
+        return $this->contactContext->getContactId() !== '' ? $this->contactContext->getContactId() : null;
     }
 }

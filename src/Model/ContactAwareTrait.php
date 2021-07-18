@@ -20,7 +20,7 @@ trait ContactAwareTrait
      *
      * @ORM\Column(type="string", name="omnisend_contact_id", length=32, nullable=true)
      */
-    private $omnisendContactId;
+    private $omnisendContactId = null;
 
     public function getOmnisendContactId(): ?string
     {

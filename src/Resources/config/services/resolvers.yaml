@@ -10,6 +10,7 @@ services:
   nfq_sylius_omnisend_plugin.resolver.contact_id:
     class: NFQ\SyliusOmnisendPlugin\Resolver\ContactIdResolver
     arguments:
+      - '@nfq_sylius_omnisend_plugin.context.contact_context'
       - '@request_stack'
 
   nfq_sylius_omnisend_plugin.resolver.default_product_additional_data:

@@ -1,0 +1,5 @@
+services:
+  nfq_sylius_omnisend_plugin.context.contact_context:
+    class: NFQ\SyliusOmnisendPlugin\Context\ContactContext
+    arguments:
+      - '@request_stack'
