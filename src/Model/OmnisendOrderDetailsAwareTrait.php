@@ -23,7 +23,7 @@ trait OmnisendOrderDetailsAwareTrait
      *
      * @ORM\JoinColumn(name="omnisend_order_details_id", onDelete="CASCADE")
      */
-    protected $omnisendOrderDetails;
+    protected $omnisendOrderDetails = null;
 
     public function __construct()
     {
@@ -31,12 +31,12 @@ trait OmnisendOrderDetailsAwareTrait
         $this->omnisendOrderDetails->setOrder($this);
     }
 
-    public function getOmnisendOrderDetails(): OrderDetails
+    public function getOmnisendOrderDetails(): ?OrderDetails
     {
         return $this->omnisendOrderDetails;
     }
 
-    public function setOmnisendOrderDetails(OrderDetails $omnisendOrderDetails): void
+    public function setOmnisendOrderDetails(?OrderDetails $omnisendOrderDetails): void
     {
         $this->omnisendOrderDetails = $omnisendOrderDetails;
     }

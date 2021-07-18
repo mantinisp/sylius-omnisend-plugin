@@ -43,6 +43,8 @@ interface OmnisendClientInterface
 
     public function deleteCart(?string $cartId, ?string $channelCode): ?object;
 
+    public function getCart(?string $cartId, ?string $channelCode): ?object;
+
     public function postOrder(Order $order, ?string $channelCode): ?object;
 
     public function patchOrder(Order $order, ?string $channelCode): ?object;
