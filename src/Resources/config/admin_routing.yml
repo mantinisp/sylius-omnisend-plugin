@@ -20,9 +20,3 @@ nfq_sylius_omnisend_sync_batch_type:
   methods: [POST]
   defaults:
     _controller: nfq_sylius_omnisend_plugin.controller.sync::sync
-
-nfq_sylius_omnisend_sync_batch_index:
-  path: /omnisend/batch/sync
-  methods: [GET]
-  defaults:
-    _controller: nfq_sylius_omnisend_plugin.controller.sync::index
