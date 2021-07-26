@@ -52,21 +52,41 @@ class ContactBuilder implements ContactBuilderInterface
     public function addIdentifiers(CustomerInterface $customer): void
     {
         if (null !== $customer->getEmail()) {
+            $subscribeStatus = ContactIdentifierChannelValue::SUBSCRIBED;
+
+            if (!$customer->isSubscribedToNewsletter() && null === $customer->getSubscribedToNewsletterAt()) {
+                $subscribeStatus = ContactIdentifierChannelValue::NON_SUBSCRIBED;
+            }
+
+            if (!$customer->isSubscribedToNewsletter() && null !== $customer->getSubscribedToNewsletterAt()) {
+                $subscribeStatus = ContactIdentifierChannelValue::UNSUBSCRIBED;
+            }
+
             $this->contact->addIdentifier(
                 $this->contactIdentifierFactory->create(
                     ContactIdentifier::TYPE_EMAIL,
                     $customer->getEmail(),
-                    $customer->isSubscribedToNewsletter() ? ContactIdentifierChannelValue::SUBSCRIBED : ContactIdentifierChannelValue::NON_SUBSCRIBED
+                    $subscribeStatus,
                 )
             );
         }
 
         if (null !== $customer->getPhoneNumber()) {
+            $subscribeStatus = ContactIdentifierChannelValue::SUBSCRIBED;
+
+            if (!$customer->isSubscribedToSMS() && null === $customer->getSubscribedToSmsNewsletterAt()) {
+                $subscribeStatus = ContactIdentifierChannelValue::NON_SUBSCRIBED;
+            }
+
+            if (!$customer->isSubscribedToNewsletter() && null !== $customer->getSubscribedToSmsNewsletterAt()) {
+                $subscribeStatus = ContactIdentifierChannelValue::UNSUBSCRIBED;
+            }
+
             $this->contact->addIdentifier(
                 $this->contactIdentifierFactory->create(
                     ContactIdentifier::TYPE_PHONE,
                     $customer->getPhoneNumber(),
-                    $customer->isSubscribedToSMS() ? ContactIdentifierChannelValue::SUBSCRIBED : ContactIdentifierChannelValue::NON_SUBSCRIBED
+                    $subscribeStatus,
                 )
             );
         }
