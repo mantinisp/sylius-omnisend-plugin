@@ -42,6 +42,8 @@ class ContactIdResolver implements ContactIdResolverInterface
             return $customer->getOmnisendContactId();
         }
 
-        return $this->contactContext->getContactId() !== '' ? $this->contactContext->getContactId() : null;
+        $contactId = $this->contactContext->getContactId();
+
+        return $contactId !== '' && $contactId!== null ? $contactId : null;
     }
 }

@@ -37,6 +37,6 @@ class ContactContext implements ContactContextInterface
             return $this->request->cookies->get('omnisendContactID');
         }
 
-        return '';
+        return null;
     }
 }
