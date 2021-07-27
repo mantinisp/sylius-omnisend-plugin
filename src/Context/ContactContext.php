@@ -25,12 +25,16 @@ class ContactContext implements ContactContextInterface
             return null;
         }
 
-        if ('null' !== $request->headers->get(ContactContextInterface::HEADER_NAME)) {
+        if (null !== $this->request && 'null' !== $request->headers->get(ContactContextInterface::HEADER_NAME)) {
             return $request->headers->get(ContactContextInterface::HEADER_NAME);
         }
 
-        if (null !== $this->request->cookies && $this->request->cookies->has(ContactContextInterface::COOKIE_NAME)) {
-            return $this->request->cookies->get(ContactContextInterface::COOKIE_NAME);
+        if (
+            null !== $this->request &&
+            null !== $this->request->cookies &&
+            $this->request->cookies->has('omnisendContactID')
+        ) {
+            return $this->request->cookies->get('omnisendContactID');
         }
 
         return '';
