@@ -72,21 +72,21 @@ class ContactBuilder implements ContactBuilderInterface
         }
 
         if (null !== $customer->getPhoneNumber()) {
-            $subscribeStatus = ContactIdentifierChannelValue::SUBSCRIBED;
+            $phoneSubscribeStatus = ContactIdentifierChannelValue::SUBSCRIBED;
 
-            if (!$customer->isSubscribedToSMS() && null === $customer->getSubscribedToSmsNewsletterAt()) {
-                $subscribeStatus = ContactIdentifierChannelValue::NON_SUBSCRIBED;
+            if (!$customer->isSubscribedToSmsNewsletter() && null === $customer->getSubscribedToSmsNewsletterAt()) {
+                $phoneSubscribeStatus = ContactIdentifierChannelValue::NON_SUBSCRIBED;
             }
 
-            if (!$customer->isSubscribedToSMS() && null !== $customer->getSubscribedToSmsNewsletterAt()) {
-                $subscribeStatus = ContactIdentifierChannelValue::UNSUBSCRIBED;
+            if (!$customer->isSubscribedToSmsNewsletter() && null !== $customer->getSubscribedToSmsNewsletterAt()) {
+                $phoneSubscribeStatus = ContactIdentifierChannelValue::UNSUBSCRIBED;
             }
 
             $this->contact->addIdentifier(
                 $this->contactIdentifierFactory->create(
                     ContactIdentifier::TYPE_PHONE,
                     $customer->getPhoneNumber(),
-                    $subscribeStatus,
+                    $phoneSubscribeStatus,
                 )
             );
         }
