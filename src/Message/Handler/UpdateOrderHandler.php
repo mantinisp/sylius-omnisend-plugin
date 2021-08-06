@@ -48,11 +48,9 @@ class UpdateOrderHandler
         if (null === $order) {
             return;
         }
-
         if (null === $order->getOmnisendOrderDetails()) {
             return;
         }
-
         if (null === $order->getOmnisendOrderDetails()->getCartId()) {
             return;
         }

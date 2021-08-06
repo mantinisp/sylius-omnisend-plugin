@@ -65,7 +65,7 @@ class CartSubscriber implements EventSubscriberInterface
         /** @var ChannelInterface $channel */
         $channel = $cart->getChannel();
 
-        if ($cart->getItems()->isEmpty()) {
+        if ($cart->getItems()->isEmpty() && $cart->getOmnisendOrderDetails()) {
             $this->messageBus->dispatch(
                 new Envelope(
                     new DeleteCart(
@@ -137,16 +137,18 @@ class CartSubscriber implements EventSubscriberInterface
             /** @var OrderDetails $details */
             $details = $cart->getOmnisendOrderDetails();
 
-            if (null !== $details->getCartId()) {
-                $this->messageBus->dispatch(
-                    new Envelope(
-                        new DeleteCart(
-                            $cart->getId(),
-                            $details->getCartId(),
-                            $channel->getCode()
+            if (null !== $details) {
+                if (null !== $details->getCartId()) {
+                    $this->messageBus->dispatch(
+                        new Envelope(
+                            new DeleteCart(
+                                $cart->getId(),
+                                $details->getCartId(),
+                                $channel->getCode()
+                            )
                         )
-                    )
-                );
+                    );
+                }
             }
         }
     }
@@ -178,7 +180,7 @@ class CartSubscriber implements EventSubscriberInterface
         /** @var OrderDetails $details */
         $details = $cart->getOmnisendOrderDetails();
 
-        if ($cart->getState() === OrderInterface::STATE_CART) {
+        if ($details !== null && $cart->getState() === OrderInterface::STATE_CART) {
             if (null !== $details->getCartId()) {
                 $this->messageBus->dispatch(
                     new Envelope(

@@ -45,7 +45,13 @@ class CancelOrderHandler
         /** @var OrderInterface|null $order */
         $order = $this->orderRepository->find($message->getOrderId());
 
-        if (null === $order || null === $order->getOmnisendOrderDetails()->getCartId()) {
+        if (null === $order) {
+            return;
+        }
+        if (null === $order->getOmnisendOrderDetails()) {
+            return;
+        }
+        if (null === $order->getOmnisendOrderDetails()->getCartId()) {
             return;
         }
 
