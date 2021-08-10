@@ -71,7 +71,6 @@ class UpdateCartHandler
         if (null === $order->getOmnisendOrderDetails()) {
             return;
         }
-
         if (null === $order->getOmnisendOrderDetails()->getCartId()) {
             /** @var CartSuccess|null $response */
             $response = $this->omnisendClient->postCart(
