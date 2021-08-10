@@ -57,7 +57,6 @@ class ContactBuilder implements ContactBuilderInterface
             if (!$customer->isSubscribedToNewsletter() && null === $customer->getSubscribedToNewsletterAt()) {
                 $subscribeStatus = ContactIdentifierChannelValue::NON_SUBSCRIBED;
             }
-
             if (!$customer->isSubscribedToNewsletter() && null !== $customer->getSubscribedToNewsletterAt()) {
                 $subscribeStatus = ContactIdentifierChannelValue::UNSUBSCRIBED;
             }
@@ -77,7 +76,6 @@ class ContactBuilder implements ContactBuilderInterface
             if (!$customer->isSubscribedToSmsNewsletter() && null === $customer->getSubscribedToSmsNewsletterAt()) {
                 $phoneSubscribeStatus = ContactIdentifierChannelValue::NON_SUBSCRIBED;
             }
-
             if (!$customer->isSubscribedToSmsNewsletter() && null !== $customer->getSubscribedToSmsNewsletterAt()) {
                 $phoneSubscribeStatus = ContactIdentifierChannelValue::UNSUBSCRIBED;
             }
