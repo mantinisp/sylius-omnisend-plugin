@@ -51,25 +51,6 @@ class ContactBuilder implements ContactBuilderInterface
 
     public function addIdentifiers(CustomerInterface $customer): void
     {
-        if (null !== $customer->getEmail()) {
-            $subscribeStatus = ContactIdentifierChannelValue::SUBSCRIBED;
-
-            if (!$customer->isSubscribedToNewsletter() && null === $customer->getSubscribedToNewsletterAt()) {
-                $subscribeStatus = ContactIdentifierChannelValue::NON_SUBSCRIBED;
-            }
-            if (!$customer->isSubscribedToNewsletter() && null !== $customer->getSubscribedToNewsletterAt()) {
-                $subscribeStatus = ContactIdentifierChannelValue::UNSUBSCRIBED;
-            }
-
-            $this->contact->addIdentifier(
-                $this->contactIdentifierFactory->create(
-                    ContactIdentifier::TYPE_EMAIL,
-                    $customer->getEmail(),
-                    $subscribeStatus,
-                )
-            );
-        }
-
         if (null !== $customer->getPhoneNumber()) {
             $phoneSubscribeStatus = ContactIdentifierChannelValue::SUBSCRIBED;
 
@@ -85,6 +66,24 @@ class ContactBuilder implements ContactBuilderInterface
                     ContactIdentifier::TYPE_PHONE,
                     $customer->getPhoneNumber(),
                     $phoneSubscribeStatus,
+                )
+            );
+        }
+        if (null !== $customer->getEmail()) {
+            $subscribeStatus = ContactIdentifierChannelValue::SUBSCRIBED;
+
+            if (!$customer->isSubscribedToNewsletter() && null === $customer->getSubscribedToNewsletterAt()) {
+                $subscribeStatus = ContactIdentifierChannelValue::NON_SUBSCRIBED;
+            }
+            if (!$customer->isSubscribedToNewsletter() && null !== $customer->getSubscribedToNewsletterAt()) {
+                $subscribeStatus = ContactIdentifierChannelValue::UNSUBSCRIBED;
+            }
+
+            $this->contact->addIdentifier(
+                $this->contactIdentifierFactory->create(
+                    ContactIdentifier::TYPE_EMAIL,
+                    $customer->getEmail(),
+                    $subscribeStatus,
                 )
             );
         }
