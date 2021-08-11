@@ -17,7 +17,6 @@ use NFQ\SyliusOmnisendPlugin\Client\Request\Model\Contact;
 use NFQ\SyliusOmnisendPlugin\Client\Request\Model\ContactIdentifier;
 use NFQ\SyliusOmnisendPlugin\Client\Request\Model\ContactIdentifierChannelValue;
 use NFQ\SyliusOmnisendPlugin\Factory\Request\ContactIdentifierFactoryInterface;
-use NFQ\SyliusOmnisendPlugin\Model\ContactAwareInterface;
 use NFQ\SyliusOmnisendPlugin\Resolver\CustomerAdditionalDataResolverInterface;
 use NFQ\SyliusOmnisendPlugin\Utils\DatetimeHelper;
 use NFQ\SyliusOmnisendPlugin\Utils\GenderHelper;
@@ -69,6 +68,7 @@ class ContactBuilder implements ContactBuilderInterface
                 )
             );
         }
+
         if (null !== $customer->getEmail()) {
             $subscribeStatus = ContactIdentifierChannelValue::SUBSCRIBED;
 
