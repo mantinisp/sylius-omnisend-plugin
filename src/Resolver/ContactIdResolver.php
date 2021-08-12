@@ -44,6 +44,6 @@ class ContactIdResolver implements ContactIdResolverInterface
 
         $contactId = $this->contactContext->getContactId();
 
-        return $contactId !== '' && $contactId!== null ? $contactId : null;
+        return $contactId !== '' && $contactId !== null ? $contactId : null;
     }
 }
