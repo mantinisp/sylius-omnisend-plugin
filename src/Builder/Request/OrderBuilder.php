@@ -161,10 +161,10 @@ class OrderBuilder implements OrderBuilderInterface
             $this->order->setShippingMethod($shipping->getMethod()->getTranslation($order->getLocaleCode())->getName());
         }
         if (null !== $payment && null !== $payment->getMethod()) {
-            $this->order->setPaymentMethod($payment->getMethod()->getTranslation($order->getLocaleCode())->getName());
-        }
-        if (is_bool($this->order->getPaymentMethod()) || null === $this->order->getPaymentMethod()) {
-            $this->order->setPaymentMethod("");
+            $method = $payment->getMethod();
+            $this->order->setPaymentMethod($method->getCode());
+        } else {
+            $this->order->setPaymentMethod(null);
         }
 
         $this->order->setContactNote($order->getNotes());
