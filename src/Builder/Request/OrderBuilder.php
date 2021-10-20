@@ -154,18 +154,15 @@ class OrderBuilder implements OrderBuilderInterface
         $payment = $order->getLastPayment();
 
         $this->order->setOrderNumber(OrderNumberResolver::resolve($order->getNumber()));
+
         if (null !== $order->getCustomer()) {
             $this->order->setEmail($order->getCustomer()->getEmail());
         }
         if (null !== $shipping && null !== $shipping->getMethod()) {
             $this->order->setShippingMethod($shipping->getMethod()->getTranslation($order->getLocaleCode())->getName());
         }
-        if (null !== $payment && null !== $payment->getMethod()) {
-            $method = $payment->getMethod();
-            $this->order->setPaymentMethod($method->getCode());
-        } else {
-            $this->order->setPaymentMethod(null);
-        }
+
+        $this->order->setPaymentMethod("none");
 
         $this->order->setContactNote($order->getNotes());
         $this->order->setOrderUrl(
