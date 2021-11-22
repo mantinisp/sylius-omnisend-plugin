@@ -64,13 +64,7 @@ class CustomerSubscriber implements EventSubscriberInterface
 
     public function onRegister(GenericEvent $event): void
     {
-        /** @var CustomerInterface $customer */
-        $customer = $event->getSubject();
-
-        $response = $this->contactManager->pushToOmnisend($customer, $this->channelContext->getChannel()->getCode());
-        if (null !== $response) {
-            $this->contactCookieSetter->set($response->getContactID());
-        }
+        //transferred to onEmailVerification method
     }
 
     public function onUpdate(GenericEvent $event): void
